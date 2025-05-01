@@ -1,32 +1,25 @@
 # Architecture Overview
 
-This project implements a two-phase web scraping pipeline using AWS Lambda functions written in Node.js and Perl. The system is designed to handle dynamic, JavaScript-rendered pages and convert them into structured data using a custom Lambda runtime.
+This project implements a two-phase web scraping pipeline using AWS Lambda functions written in Node.js and Perl. The system is designed to handle dynamic, JavaScript-rendered pages and convert them into structured data.
 
 ## High-Level Flow
 
-```mermaid
-architecture-beta
-    group api(cloud)[API]
+This diagram is generated from YAML using [`awsdac`](https://github.com/awslabs/diagram-as-code).
 
-    service db(database)[Database] in api
-    service disk1(disk)[Storage] in api
-    service disk2(disk)[Storage] in api
-    service server(server)[Server] in api
-
-    db:L -- R:server
-    disk1:T -- B:server
-    disk2:T -- B:db
-```
+<img src="../web-scraper-pipeline.png" alt="Web Scraper Architecture Diagram" style="max-width: 100%; border: 1px solid #ccc; border-radius: 6px;">
 
 ## Components
-1. **Node.js Lambda: Fetcher**
-    - Uses headless Chromium (via Puppeteer) to render JavaScript-heavy web pages
-    - Stores fully rendered HTML in a raw S3 bucket
+1. **fetcher-lambda**
+    - A Node.js Lambda function responsible for fetching HTML content
+    - Uses headless Chromium (via Puppeteer) to render JavaScript-heavy pages
+    - Stores the fully rendered HTML in an intermediate S3 bucket
 
-2. **S3 (Raw HTML Bucket)**
-    - Serves as the interface between the fetch and scrape phases
+2. **web-scraper-output**
+    - Acts as a bridge between the fetch and parse phases
+    - Receives raw HTML from the fetcher
 
-3. **Perl Lambda: Scraper**
-    - Custom runtime implemented using a bootstrap script
-    - Uses Mojo::DOM to parse HTML and extract structured job listings
+3. **parser-lambda**
+    - A Perl-based Lambda function that parses the stored HTML
+    - Uses a custom runtime implemented with a `bootstrap` script
+    - Parses the HTML using `Mojo::DOM` to extract structured job listings
 
