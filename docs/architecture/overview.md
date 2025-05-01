@@ -9,7 +9,7 @@ This diagram is generated from YAML using [`awsdac`](https://github.com/awslabs/
 <img src="../web-scraper-pipeline.png" alt="Web Scraper Architecture Diagram" style="max-width: 100%; border: 1px solid #ccc; border-radius: 6px;">
 
 ## Components
-1. **fetcher-lambda**
+1. [**fetcher-lambda**](https://github.com/PhilNel/node-web-fetcher)
     - A Node.js Lambda function responsible for fetching HTML content
     - Uses headless Chromium (via Puppeteer) to render JavaScript-heavy pages
     - Stores the fully rendered HTML in an intermediate S3 bucket
@@ -18,8 +18,12 @@ This diagram is generated from YAML using [`awsdac`](https://github.com/awslabs/
     - Acts as a bridge between the fetch and parse phases
     - Receives raw HTML from the fetcher
 
-3. **parser-lambda**
+3. [**parser-lambda**](https://github.com/PhilNel/perl-web-scraper)
     - A Perl-based Lambda function that parses the stored HTML
     - Uses a custom runtime implemented with a `bootstrap` script
     - Parses the HTML using `Mojo::DOM` to extract structured job listings
 
+## Infrastructure
+
+- [**infra-web-scraper**](https://github.com/PhilNel/infra-web-scraper)  
+Terraform project for managing infrastructure: S3 buckets, Lambda deployment, IAM roles, and CI/CD wiring.
