@@ -1,0 +1,31 @@
+site_name: Web Scraper Docs
+repo_url: https://github.com/PhilNel/docs-web-scraper
+site_url: https://PhilNel.github.io/docs-web-scraper
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - content.code.copy
+
+plugins:
+  - search
+  - mermaid2
+
+markdown_extensions:
+  - pymdownx.superfences:
+        # make exceptions to highlighting of code:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:mermaid2.fence_mermaid_custom
+  - admonition
+  - codehilite
+  - footnotes
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Architecture:
+      - Overview: architecture/overview.md
