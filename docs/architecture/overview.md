@@ -1,7 +1,5 @@
 # Architecture Overview
 
-# Architecture Overview
-
 This project implements a two-phase web scraping pipeline using AWS Lambda functions written in Node.js and Perl. The system is designed to handle dynamic, JavaScript-rendered pages and convert them into structured data using a custom Lambda runtime.
 
 ## High-Level Flow
