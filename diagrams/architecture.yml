@@ -1,0 +1,44 @@
+Diagram:
+  DefinitionFiles:
+    - Type: URL
+      Url: "https://raw.githubusercontent.com/awslabs/diagram-as-code/main/definitions/definition-for-aws-icons-light.yaml"
+
+  Resources:
+    Canvas:
+      Type: AWS::Diagram::Canvas
+      Direction: horizontal
+      Children:
+        - Fetcher
+        - HTMLBucket
+        - Parser
+
+    Fetcher:
+      Type: AWS::Lambda::Function
+      Preset: Lambda
+      Title: fetcher-lambda 
+
+    HTMLBucket:
+      Type: AWS::S3::Bucket
+      Title: web-scraper-output
+
+    Parser:
+      Type: AWS::Lambda::Function
+      Preset: Lambda
+      Title: parser-lambda
+  
+  Links:
+    - Source: Fetcher
+      Target: HTMLBucket
+      SourcePosition: E
+      TargetPosition: W
+      TargetArrowHead:
+        Type: Open
+
+    - Source: HTMLBucket
+      Target: Parser
+      SourcePosition: E
+      TargetPosition: W
+      TargetArrowHead:
+        Type: Open
+
+
