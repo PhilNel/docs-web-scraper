@@ -28,4 +28,4 @@ make diagram
 
 - [📦 `node-web-fetcher`](https://github.com/PhilNel/node-web-fetcher) - Headless browser Lambda that uses Puppeteer to fetch fully rendered HTML from dynamic websites.
 
-- [📦 `infra-web-scraper`](https://github.com/PhilNel/infra-web-scraper) - Terraform configuration for deploying the infrastructure and managing Lambda permissions, S3 buckets, etc.
+- [📦 `terraform-web-scraper`](https://github.com/PhilNel/terraform-web-scraper) - Terraform configuration for deploying the infrastructure and managing Lambda permissions, S3 buckets, etc.

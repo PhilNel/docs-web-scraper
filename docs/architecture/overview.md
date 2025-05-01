@@ -25,5 +25,5 @@ This diagram is generated from YAML using [`awsdac`](https://github.com/awslabs/
 
 ## Infrastructure
 
-- [**infra-web-scraper**](https://github.com/PhilNel/infra-web-scraper)  
+- [**terraform-web-scraper**](https://github.com/PhilNel/terraform-web-scraper)  
 Terraform project for managing infrastructure: S3 buckets, Lambda deployment, IAM roles, and CI/CD wiring.
