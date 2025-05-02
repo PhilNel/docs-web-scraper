@@ -36,3 +36,6 @@ nav:
   - Home: index.md
   - Architecture:
       - Overview: architecture/overview.md
+  - Features:
+      - HTML Fetching: features/html-fetching.md
+      - HTML Parsing: features/html-parsing.md
