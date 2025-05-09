@@ -11,6 +11,7 @@ Diagram:
         - Fetcher
         - HTMLBucket
         - Parser
+        - JobStore
 
     Fetcher:
       Type: AWS::Lambda::Function
@@ -25,6 +26,11 @@ Diagram:
       Type: AWS::Lambda::Function
       Preset: Lambda
       Title: parser-lambda
+
+    JobStore:
+      Type: AWS::DynamoDB::Table
+      Preset: "Amazon DynamoDB"
+      Title: job-store
   
   Links:
     - Source: Fetcher
@@ -36,6 +42,13 @@ Diagram:
 
     - Source: HTMLBucket
       Target: Parser
+      SourcePosition: E
+      TargetPosition: W
+      TargetArrowHead:
+        Type: Open
+    
+    - Source: Parser
+      Target: JobStore
       SourcePosition: E
       TargetPosition: W
       TargetArrowHead:
