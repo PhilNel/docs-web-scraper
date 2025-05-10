@@ -40,6 +40,3 @@ Many job listing sites (and other dynamic content sources) rely on client-side J
 
 - Add support for fetching multiple pages/sites in a single execution
 - Integrate error reporting and retry logic for failed fetches
-- Store hash of fetched websites to avoid storing duplicate data
-- TypeScript support
-- Unit tests if required
