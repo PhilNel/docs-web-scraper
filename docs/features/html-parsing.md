@@ -78,6 +78,30 @@ The parser-lambdas support pluggable "sink" implementations to handle different 
 
 This design enables new sinks (e.g., for S3 or external APIs) to be added without modifying parser internals.
 
+### Multi-site Support and Dynamic Parser Selection
+The parsing Lambda supports multiple job listing websites through simple S3 key naming convention.
+
+Each HTML file uploaded by the fetcher Lambda is stored in S3 with a prefix that corresponds to the source company as follows:
+
+```bash
+s3://web-scraper-output-dev-af-south-1/
+├── duckduckgo/
+│   └── rendered.html
+├── posthog/
+│   └── rendered.html
+```
+
+When the parser Lambda is invoked via an EventBridge notification from S3, it receives the object key (e.g. `duckduckgo/rendered.html`) in the event payload. 
+
+The handler extracts the first path segment of the S3 key (in this case, `duckduckgo`) to:
+- Identify which company the job listings belong to
+- Instantiate the appropriate parser implementation for that site's HTML structure
+
+This allows the system to support additional job listing websites by:
+- Updating the fetcher config to include the new site's URL
+- Implementing a new parser module that conforms to the parser interface
+- Registering the new parser in the parser factory
+
 ## Current Limitations
 
 - Assumes all HTML files are consistent in structure
@@ -85,6 +109,5 @@ This design enables new sinks (e.g., for S3 or external APIs) to be added withou
 
 ## Future Enhancements
 
-- Support multiple job site formats via pluggable parser modules
 - Extract the custom runtime implementation into a reusable CPAN module for use in other Perl-based Lambdas
 
