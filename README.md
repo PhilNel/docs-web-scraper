@@ -2,6 +2,8 @@
 
 This repository hosts the documentation for the Web Scraper Lambda pipeline. The docs are written in Markdown, built with [MkDocs](https://www.mkdocs.org/) using the [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) theme, and deployed via GitHub Pages.
 
+📚 **Documentation:** [https://philnel.github.io/docs-web-scraper](https://philnel.github.io/docs-web-scraper)
+
 ## 🚀 Getting Started
 
 Install dependencies (Python, MkDocs):

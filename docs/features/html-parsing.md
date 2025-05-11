@@ -94,10 +94,12 @@ s3://web-scraper-output-dev-af-south-1/
 When the parser Lambda is invoked via an EventBridge notification from S3, it receives the object key (e.g. `duckduckgo/rendered.html`) in the event payload. 
 
 The handler extracts the first path segment of the S3 key (in this case, `duckduckgo`) to:
+
 - Identify which company the job listings belong to
 - Instantiate the appropriate parser implementation for that site's HTML structure
 
 This allows the system to support additional job listing websites by:
+
 - Updating the fetcher config to include the new site's URL
 - Implementing a new parser module that conforms to the parser interface
 - Registering the new parser in the parser factory
