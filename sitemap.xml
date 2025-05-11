@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://PhilNel.github.io/docs-web-scraper/</loc>
+         <lastmod>2025-05-11</lastmod>
+    </url>
+    <url>
+         <loc>https://PhilNel.github.io/docs-web-scraper/architecture/overview/</loc>
+         <lastmod>2025-05-11</lastmod>
+    </url>
+    <url>
+         <loc>https://PhilNel.github.io/docs-web-scraper/features/html-fetching/</loc>
+         <lastmod>2025-05-11</lastmod>
+    </url>
+    <url>
+         <loc>https://PhilNel.github.io/docs-web-scraper/features/html-parsing/</loc>
+         <lastmod>2025-05-11</lastmod>
+    </url>
+</urlset>
