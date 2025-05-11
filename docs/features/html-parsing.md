@@ -85,8 +85,6 @@ This design enables new sinks (e.g., for S3 or external APIs) to be added withou
 
 ## Future Enhancements
 
-- Implement event-driven invocation so the parser Lambda runs automatically when the fetcher uploads new HTML files
-- Track job lifecycle by adding "active/inactive" status to detect when a listing is removed from a website
 - Support multiple job site formats via pluggable parser modules
 - Extract the custom runtime implementation into a reusable CPAN module for use in other Perl-based Lambdas
 

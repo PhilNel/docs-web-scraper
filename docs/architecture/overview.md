@@ -9,21 +9,30 @@ This diagram is generated from YAML using [`awsdac`](https://github.com/awslabs/
 <img src="../web-scraper-pipeline.png" alt="Web Scraper Architecture Diagram" style="max-width: 100%; border: 1px solid #ccc; border-radius: 6px;">
 
 ## Components
-1. **fetcher-lambda**
+
+1. **fetcher-schedule**
+    - An EventBridge rule that triggers the `fetcher-lambda` on a defined schedule (e.g., daily)
+    - Allows full decoupling of the fetching cadence from other processing components
+
+2. **fetcher-lambda**
     - A [Node.js Lambda function](https://github.com/PhilNel/node-web-fetcher) responsible for fetching HTML content
     - Uses headless Chromium (via Puppeteer) to render JavaScript-heavy pages
     - Stores the fully rendered HTML in an intermediate S3 bucket
 
-2. **web-scraper-output**
+3. **web-scraper-output**
     - Acts as a bridge between the fetch and parse phases
     - Receives raw HTML from the fetcher
 
-3. **parser-lambda**
+4. **s3-parser-trigger**
+    - An EventBridge rule that listens for `ObjectCreated` events from the `web-scraper-output` S3 bucket
+    - Allows for decoupled and scalable downstream processing
+
+5. **parser-lambda**
     - A [Perl-based Lambda function](https://github.com/PhilNel/perl-web-scraper) and a [Go Lambda function](https://github.com/PhilNel/go-web-scraper) that parse the stored HTML
     - The Perl function uses a custom runtime implemented via a `bootstrap` script and is deployed as a Docker container, while the Go function uses a zip-based deployment with the `provided.al2` runtime
     - Parses HTML using `Mojo::DOM` (Perl) or `PuerkitoBio/goquery` (Go) to extract structured job listings
 
-4. **job-store**
+6. **job-store**
     - Stores structured job listings parsed by the Lambda functions
 
 ## Infrastructure

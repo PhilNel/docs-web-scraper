@@ -6,21 +6,51 @@ Diagram:
   Resources:
     Canvas:
       Type: AWS::Diagram::Canvas
-      Direction: horizontal
+      Direction: vertical
+      Children:
+        - AWSCloud
+
+    AWSCloud:
+      Type: AWS::Diagram::Cloud
+      Preset: AWSCloudNoLogo
+      Direction: vertical
+      Align: left
+      Children:
+        - FetcherSchedule
+        - FetcherFlow
+        - ParserFlow
+
+    FetcherFlow:
+      Type: AWS::Diagram::HorizontalStack
       Children:
         - Fetcher
         - HTMLBucket
+
+    ParserFlow:
+      Type: AWS::Diagram::HorizontalStack
+      Children:
+        - ParserTrigger
         - Parser
         - JobStore
+
+    FetcherSchedule:
+      Type: AWS::Events::Rule
+      Preset: "Amazon EventBridge"
+      Title: "fetcher-schedule"
 
     Fetcher:
       Type: AWS::Lambda::Function
       Preset: Lambda
-      Title: fetcher-lambda 
+      Title: fetcher-lambda
 
     HTMLBucket:
       Type: AWS::S3::Bucket
       Title: web-scraper-output
+
+    ParserTrigger:
+      Type: AWS::Events::Rule
+      Preset: "Amazon EventBridge"
+      Title: "s3-parser-trigger"
 
     Parser:
       Type: AWS::Lambda::Function
@@ -31,27 +61,35 @@ Diagram:
       Type: AWS::DynamoDB::Table
       Preset: "Amazon DynamoDB"
       Title: job-store
-  
+
   Links:
+    - Source: FetcherSchedule
+      Target: Fetcher
+      SourcePosition: S
+      TargetPosition: N
+      TargetArrowHead: { Type: Open }
+
     - Source: Fetcher
       Target: HTMLBucket
       SourcePosition: E
       TargetPosition: W
-      TargetArrowHead:
-        Type: Open
+      TargetArrowHead: { Type: Open }
 
     - Source: HTMLBucket
+      Target: ParserTrigger
+      SourcePosition: S
+      TargetPosition: N
+      TargetArrowHead: { Type: Open }
+
+    - Source: ParserTrigger
       Target: Parser
       SourcePosition: E
       TargetPosition: W
-      TargetArrowHead:
-        Type: Open
-    
+      TargetArrowHead: { Type: Open }
+
     - Source: Parser
       Target: JobStore
       SourcePosition: E
       TargetPosition: W
-      TargetArrowHead:
-        Type: Open
-
+      TargetArrowHead: { Type: Open }
 
